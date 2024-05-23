@@ -1,6 +1,9 @@
 package database;
 
+import service.User;
+
 import java.sql.*;
+import java.util.Base64;
 
 public class SQLiteConnector {
     public static Connection connect()
@@ -35,6 +38,54 @@ public class SQLiteConnector {
             }
         } catch (SQLException e) {
             System.out.println("Wystąpił błąd podczas tworzenia lub sprawdzania tabeli: " + e.getMessage());
+        }
+    }
+    public static void addAccount(String name, String password,boolean isAdmin,Connection conn)
+    {
+        try(PreparedStatement statement= conn.prepareStatement("INSERT INTO accountTable (name,password,isAdmin) VALUES ( ?,?,?)"))
+        {
+            statement.setString(1,name);
+            statement.setString(2, Base64.getEncoder().encodeToString(password.getBytes()));
+            statement.setBoolean(3, isAdmin);
+            statement.executeUpdate();
+            System.out.println("Dane wstawiono poprawnie");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+        }
+    }
+    public static boolean getAdmin(Connection conn) {
+        try (Statement statement = conn.createStatement()) {
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM accountTable WHERE isAdmin=true");
+            if (resultSet.next())
+                return true;
+            else
+                return false;
+
+        } catch (SQLException e) {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:" + e);
+            return false;
+        }
+    }
+    public static User getAccount(String name, String password, Connection conn)
+    {
+        try(PreparedStatement statement= conn.prepareStatement("SELECT * FROM accountTable WHERE name=(?) AND password=(?)"))
+        {
+            statement.setString(1,name);
+            statement.setString(2, Base64.getEncoder().encodeToString(password.getBytes()));
+            ResultSet resultSet=statement.executeQuery();
+            if(resultSet.next())
+                return new User(resultSet.getString("nick"),resultSet.getBoolean("isAdmin"));
+            else
+                return null;
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+            return null;
         }
     }
 }
