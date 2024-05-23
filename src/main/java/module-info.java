@@ -7,4 +7,6 @@ module JavaRMI {
 
     opens client to javafx.fxml;
     exports client;
+    exports service;
+    exports database;
 }

@@ -20,12 +20,35 @@ public class Client extends Application {
             System.out.println(remoteObject.sayHello());
 
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
-            //wczytanie pliku fxml zawierający opis sceny
             Parent mainWindow = mainWindowLoader.load();
-            MainWindowController controller = mainWindowLoader.getController();
-            stage.setTitle("RMI");
+            MainWindowController mainWindowController = mainWindowLoader.getController();
+            mainWindowController.setStage(stage);
 
-            stage.setScene(new Scene(mainWindow, 800, 600));
+            FXMLLoader registerLoader = new FXMLLoader(getClass().getResource("registerWindow.fxml"));
+            Parent registerWindow= registerLoader.load();
+            RegisterWindowController registerWindowController = registerLoader.getController();
+            registerWindowController.setMainStage(stage);
+
+            FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("LoginWindow.fxml"));
+            Parent loginWindow =loginLoader.load();
+            LoginWindowController loginWindowController= loginLoader.getController();
+            loginWindowController.setMainStage(stage);
+
+            Scene mainScene=new Scene(mainWindow, 800, 600);
+            registerWindowController.setMainScene(mainScene);
+            loginWindowController.setMainScene(mainScene);
+            loginWindowController.setMw(mainWindowController);
+
+            mainWindowController.setRegisterScene(new Scene(registerWindow, 800, 600));
+            mainWindowController.setLoginScene(new Scene(loginWindow,800,600));
+
+            mainWindowController.setRemoteInterface(remoteObject);
+            loginWindowController.setRemoteInterface(remoteObject);
+            registerWindowController.setRemoteInterface(remoteObject);
+
+
+            stage.setTitle("RMI");
+            stage.setScene(mainScene);
             stage.show();
 
 

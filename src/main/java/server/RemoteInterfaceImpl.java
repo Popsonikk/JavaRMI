@@ -10,22 +10,21 @@ import java.sql.Connection;
 
 public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteInterface {
 
-    private Connection connection;
+
     private User user;
 
-    public RemoteInterfaceImpl(Connection connection) throws RemoteException {
+    public RemoteInterfaceImpl() throws RemoteException {
         super();
-        this.connection = connection;
+
         this.user=new User();
 
     }
 
     @Override
     public boolean register(String name, String password, boolean isAdmin) throws RemoteException {
-        if(!isAdmin||!SQLiteConnector.getAdmin(connection))
+        if(!isAdmin||!SQLiteConnector.getAdmin())
         {
-            SQLiteConnector.addAccount(name,password, false,connection);
-            System.out.println("Użytkownik "+name+" został dodany do bazy");
+            SQLiteConnector.addAccount(name,password, isAdmin);
             return true;
         }
         else
@@ -38,7 +37,7 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
 
     @Override
     public boolean logIn(String name, String password) throws RemoteException {
-        user=SQLiteConnector.getAccount(name,password,connection);
+        user=SQLiteConnector.getAccount(name,password);
         if(user==null)
         {
             System.out.println("Błędne dane logowania");
@@ -46,7 +45,8 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
         }
         else
         {
-            System.out.println("Zalogowano poprawnie");
+            System.out.println("Zalogowano poprawnie: "+user.getName());
+
             return true;
         }
     }

@@ -9,3 +9,4 @@ public interface RemoteInterface extends Remote {
     boolean logIn(String name, String password) throws RemoteException;
     String sayHello() throws RemoteException;
 }
+
