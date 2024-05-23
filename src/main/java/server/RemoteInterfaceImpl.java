@@ -50,4 +50,9 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
             return true;
         }
     }
+
+    @Override
+    public String sayHello() throws RemoteException {
+        return "Hello Client";
+    }
 }

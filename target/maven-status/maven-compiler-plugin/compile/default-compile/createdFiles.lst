@@ -1,0 +1,8 @@
+client\Client.class
+service\Question.class
+server\Main.class
+service\RemoteInterface.class
+client\MainWindowController.class
+database\SQLiteConnector.class
+server\RemoteInterfaceImpl.class
+service\User.class
