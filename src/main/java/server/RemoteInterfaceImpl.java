@@ -54,7 +54,7 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
     }
 
     @Override
-    public boolean addTest(String testName, List<Question> questions) {
+    public boolean addTest(String testName, List<Question> questions) throws RemoteException {
         try
         {
             SQLiteConnector.addTest(testName);
@@ -72,6 +72,7 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
             return  false;
         }
     }
+
 
     @Override
     public String sayHello() throws RemoteException {

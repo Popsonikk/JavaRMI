@@ -1,6 +1,8 @@
 package service;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private String q,a,b,c,good;
 
     public Question(String q, String a, String b, String c, String good) {

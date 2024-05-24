@@ -91,7 +91,7 @@ public class SQLiteConnector {
     public static void addQuestion(String name,String a,String b,String c,String correct,int id)
     {
         try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
-            PreparedStatement statement= conn.prepareStatement("INSERT INTO questiontTable (question,a,b,c,correct,testId) VALUES ( ?,?,?,?,?,?)"))
+            PreparedStatement statement= conn.prepareStatement("INSERT INTO questionTable (question,a,b,c,correct,testId) VALUES ( ?,?,?,?,?,?)"))
         {
             statement.setString(1,name);
             statement.setString(2,a);

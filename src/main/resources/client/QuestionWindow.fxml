@@ -26,17 +26,17 @@
             <RowConstraints minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <CheckBox mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <CheckBox fx:id="is_A_valid" mnemonicParsing="false" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets bottom="15.0" left="40.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <CheckBox fx:id="is_B_valid" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets bottom="15.0" left="40.0" right="15.0" top="15.0" />
                </GridPane.margin>
             </CheckBox>
-            <CheckBox mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <CheckBox fx:id="is_C_valid" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets bottom="15.0" left="40.0" right="15.0" top="15.0" />
                </GridPane.margin>
@@ -46,10 +46,10 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opcja 1" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opcja 2" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Opcja 3" textAlignment="CENTER" wrappingWidth="100.0" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="quest" GridPane.columnIndex="1" />
+            <TextField fx:id="a" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="b" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="c" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Text layoutX="294.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kreator Testu" textAlignment="CENTER">
@@ -57,8 +57,8 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Button layoutX="636.0" layoutY="536.0" mnemonicParsing="false" styleClass="applyButton" stylesheets="@styles.css" text="Dodaj pytanie" />
-      <Button layoutX="14.0" layoutY="536.0" mnemonicParsing="false" styleClass="applyButton" stylesheets="@styles.css" text="Zapisz Test" />
+      <Button layoutX="636.0" layoutY="536.0" mnemonicParsing="false" styleClass="applyButton" stylesheets="@styles.css" fx:id="addQuestButton" onAction="#addQuest" text="Dodaj pytanie" />
+      <Button layoutX="14.0" layoutY="536.0" mnemonicParsing="false" styleClass="applyButton" stylesheets="@styles.css" fx:id="saveTestButton" onAction="#saveTest" text="Zapisz Test" />
       <GridPane layoutX="250.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="300.0">
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -73,7 +73,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <TextField prefHeight="40.0" GridPane.rowIndex="1" />
+            <TextField fx:id="testName" prefHeight="40.0" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

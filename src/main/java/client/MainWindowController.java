@@ -19,6 +19,7 @@ public class MainWindowController implements Initializable {
     private Stage mainStage; //kontener reprezentujący okno aplikacji
     private Scene loginScene;
     private Scene registerScene;
+    private Scene testScene;
     @FXML
     private Text helloMessage;
     private SimpleStringProperty nick=new SimpleStringProperty();
@@ -32,6 +33,8 @@ public class MainWindowController implements Initializable {
         helloMessage.textProperty().bind(Bindings.concat("Zalogowany jako: ").concat(nick));
 
     }
+
+    public void setTestScene(Scene testScene) {this.testScene = testScene;}
     public void setRegisterScene(Scene registerScene) {
         this.registerScene = registerScene;
     }
@@ -47,6 +50,7 @@ public class MainWindowController implements Initializable {
     public void register() {
         mainStage.setScene(registerScene);
     }
+    public void addtest(){mainStage.setScene(testScene);}
     public void setNick(String s)
     {
         nick.set(s);

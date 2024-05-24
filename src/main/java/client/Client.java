@@ -34,17 +34,25 @@ public class Client extends Application {
             LoginWindowController loginWindowController= loginLoader.getController();
             loginWindowController.setMainStage(stage);
 
+            FXMLLoader questLoader = new FXMLLoader(getClass().getResource("QuestionWindow.fxml"));
+            Parent questWindow= questLoader.load();
+            QuestionWindowController questionWindowController = questLoader.getController();
+            questionWindowController.setMainStage(stage);
+
             Scene mainScene=new Scene(mainWindow, 800, 600);
             registerWindowController.setMainScene(mainScene);
             loginWindowController.setMainScene(mainScene);
+            questionWindowController.setMainScene(mainScene);
             loginWindowController.setMw(mainWindowController);
 
             mainWindowController.setRegisterScene(new Scene(registerWindow, 800, 600));
             mainWindowController.setLoginScene(new Scene(loginWindow,800,600));
+            mainWindowController.setTestScene(new Scene(questWindow,800,600));
 
             mainWindowController.setRemoteInterface(remoteObject);
             loginWindowController.setRemoteInterface(remoteObject);
             registerWindowController.setRemoteInterface(remoteObject);
+            questionWindowController.setRemoteInterface(remoteObject);
 
 
             stage.setTitle("RMI");

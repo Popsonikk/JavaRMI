@@ -8,7 +8,7 @@ public interface RemoteInterface extends Remote {
 
     boolean register(String name, String password, boolean isAdmin) throws RemoteException;
     boolean logIn(String name, String password) throws RemoteException;
-    boolean addTest(String testName, List<Question> questions);
+    boolean addTest(String testName, List<Question> questions) throws RemoteException;
     String sayHello() throws RemoteException;
 }
 
