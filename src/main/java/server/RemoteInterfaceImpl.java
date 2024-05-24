@@ -1,12 +1,14 @@
 package server;
 
 import database.SQLiteConnector;
+import service.Question;
 import service.RemoteInterface;
 import service.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
+import java.util.List;
 
 public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteInterface {
 
@@ -48,6 +50,26 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
             System.out.println("Zalogowano poprawnie: "+user.getName());
 
             return true;
+        }
+    }
+
+    @Override
+    public boolean addTest(String testName, List<Question> questions) {
+        try
+        {
+            SQLiteConnector.addTest(testName);
+            int id=SQLiteConnector.getTestId(testName);
+            for(Question q:questions)
+            {
+                SQLiteConnector.addQuestion(q.getQ(), q.getA(), q.getB(), q.getC(), q.getGood(), id);
+            }
+            return true;
+
+        }
+        catch (Exception e)
+        {
+            System.out.println("Nie udało się dodać testu: "+e);
+            return  false;
         }
     }
 

@@ -25,6 +25,22 @@ public class SQLiteConnector {
         createTable(checkTableExistsSQL,createTableSQL);
 
     }
+    public static void createTestTable()
+    {
+        String checkTableExistsSQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='testTable';";
+        String createTableSQL = "CREATE TABLE testTable ( id INTEGER PRIMARY KEY AUTOINCREMENT, testName TEXT NOT NULL);";
+        createTable(checkTableExistsSQL,createTableSQL);
+
+    }
+    public static void createQuestionTable()
+    {
+        String checkTableExistsSQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='questionTable';";
+        String createTableSQL = "CREATE TABLE questionTable ( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "question TEXT NOT NULL, a TEXT NOT NULL, b TEXT NOT NULL, c TEXT NOT NULL, correct TEXT NOT NULL," +
+                " testId INTEGER, FOREIGN KEY (testId) REFERENCES tests(id) );";
+        createTable(checkTableExistsSQL,createTableSQL);
+
+    }
     private static void createTable(String existCommand,String createCommand)
     {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
@@ -49,7 +65,40 @@ public class SQLiteConnector {
             statement.setString(1,name);
             statement.setString(2, Base64.getEncoder().encodeToString(password.getBytes()));
             statement.setBoolean(3, isAdmin);
-            System.out.println(isAdmin);
+
+            statement.executeUpdate();
+            System.out.println("Dane wstawiono poprawnie");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+        }
+    }
+    public static void addTest(String name)
+    {
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            PreparedStatement statement= conn.prepareStatement("INSERT INTO testTable (testName) VALUES ( ?)"))
+        {
+            statement.setString(1,name);
+            statement.executeUpdate();
+            System.out.println("Dane wstawiono poprawnie");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+        }
+    }
+    public static void addQuestion(String name,String a,String b,String c,String correct,int id)
+    {
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            PreparedStatement statement= conn.prepareStatement("INSERT INTO questiontTable (question,a,b,c,correct,testId) VALUES ( ?,?,?,?,?,?)"))
+        {
+            statement.setString(1,name);
+            statement.setString(2,a);
+            statement.setString(3,b);
+            statement.setString(4,c);
+            statement.setString(5,correct);
+            statement.setInt(6,id);
             statement.executeUpdate();
             System.out.println("Dane wstawiono poprawnie");
         }
@@ -93,4 +142,24 @@ public class SQLiteConnector {
             return null;
         }
     }
+    public static int getTestId(String name)
+    {
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            PreparedStatement statement= conn.prepareStatement("SELECT id FROM testTable WHERE testName=(?) "))
+        {
+            statement.setString(1,name);
+            ResultSet resultSet=statement.executeQuery();
+            if(resultSet.next())
+                return resultSet.getInt("id");
+            else
+                return -1;
+
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+            return -1;
+        }
+    }
+
 }

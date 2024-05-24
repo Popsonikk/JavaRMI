@@ -19,6 +19,8 @@ public class Main {
             {
                 System.out.println("Połączono z bazą danych SQLite.");
                 SQLiteConnector.createAccountTable();
+                SQLiteConnector.createTestTable();
+                SQLiteConnector.createQuestionTable();
                 RemoteInterface remoteObject = new RemoteInterfaceImpl();
                 LocateRegistry.createRegistry(5555);
                 Naming.rebind("//localhost:5555/remoteObject", remoteObject);
