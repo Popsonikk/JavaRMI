@@ -67,7 +67,7 @@
                   <PasswordField fx:id="applyPass" prefHeight="50.0" styleClass="defaultText"  />
                </children>
             </GridPane>
-            <CheckBox fx:id="checkBox"  prefHeight="62.0" prefWidth="302.0" text="Czy admin" selected="true" GridPane.rowIndex="3" />
+            <CheckBox fx:id="checkBox"  prefHeight="62.0" prefWidth="302.0" text="Czy admin"  GridPane.rowIndex="3" />
 
          </children>
 
