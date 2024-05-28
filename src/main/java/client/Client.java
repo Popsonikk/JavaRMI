@@ -16,7 +16,7 @@ public class Client extends Application {
 
         try {
             // Pobieranie referencji do zdalnego obiektu
-            RemoteInterface remoteObject = (RemoteInterface) Naming.lookup("//localhost:5555/remoteObject");
+            RemoteInterface remoteObject = (RemoteInterface) Naming.lookup("//localhost:5556/remoteObject");
             System.out.println(remoteObject.sayHello());
 
             FXMLLoader mainWindowLoader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
@@ -40,7 +40,7 @@ public class Client extends Application {
             questionWindowController.setMainStage(stage);
 
             FXMLLoader testLoader = new FXMLLoader(getClass().getResource("TestWindow.fxml"));
-            Parent testWindow= testLoader.load();
+            Parent testWindow = testLoader.load();
             TestWindowController testWindowController = testLoader.getController();
             testWindowController.setMainStage(stage);
 

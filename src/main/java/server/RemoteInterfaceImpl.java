@@ -73,9 +73,24 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
         }
     }
 
+    @Override
+    public int getTestId(String name) throws RemoteException {
+        return SQLiteConnector.getTestId(name);
+    }
+
+    @Override
+    public User getUser() {
+        return user;
+    }
+
 
     @Override
     public String sayHello() throws RemoteException {
         return "Hello Client";
+    }
+
+    @Override
+    public List<Question> getQuestionList(String name) throws RemoteException {
+        return SQLiteConnector.getQuestions(name);
     }
 }

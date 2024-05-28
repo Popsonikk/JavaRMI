@@ -1,9 +1,12 @@
 package database;
 
+import service.Question;
 import service.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 
 public class SQLiteConnector {
     public static Connection connect()
@@ -151,6 +154,30 @@ public class SQLiteConnector {
             else
                 return null;
 
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+            return null;
+        }
+    }
+    public static List<Question> getQuestions(String name)
+    {
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            PreparedStatement statement= conn.prepareStatement("SELECT * FROM questionTable AS qt JOIN testTable AS tt " +
+                    "WHERE qt.testId = tt.id AND tt.testName=(?)")) {
+            List<Question>questions=new ArrayList<>();
+            statement.setString(1,name);
+
+            ResultSet rs=statement.executeQuery();
+            while(rs.next())
+            {
+                questions.add(new Question(rs.getString("question"),rs.getString("a"),rs.getString("b"),
+                        rs.getString("c"),rs.getString("correct")));
+            }
+
+
+            return questions;
         }
         catch (SQLException e)
         {

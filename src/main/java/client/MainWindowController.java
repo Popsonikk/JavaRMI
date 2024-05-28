@@ -1,6 +1,6 @@
 package client;
 
-import database.SQLiteConnector;
+
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import service.RemoteInterface;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable {
@@ -83,14 +84,13 @@ public class MainWindowController implements Initializable {
     }
     public void addTest(){mainStage.setScene(questionScene);}
 
-    public void writeTest()
-    {
+    public void writeTest() throws RemoteException {
         if(testName.getText().isEmpty())
         {
             alertText.setText("Nie podałes nazwy testu!");
             alertText.setFill(Color.RED);
         }
-        else if(SQLiteConnector.getTestId(testName.getText())==-1)
+        else if(remoteInterface.getTestId(testName.getText())==-1)
         {
             alertText.setText("Podany test nie istnieje");
             alertText.setFill(Color.RED);
@@ -98,6 +98,8 @@ public class MainWindowController implements Initializable {
         else
         {
             testWindowController.setTestName(testName.getText());
+            testWindowController.setQuestions(remoteInterface.getQuestionList(testName.getText()));
+            testWindowController.startTest();
             alertText.setText("");
             mainStage.setScene(testScene);
         }

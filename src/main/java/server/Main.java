@@ -22,8 +22,8 @@ public class Main {
                 SQLiteConnector.createTestTable();
                 SQLiteConnector.createQuestionTable();
                 RemoteInterface remoteObject = new RemoteInterfaceImpl();
-                LocateRegistry.createRegistry(5555);
-                Naming.rebind("//localhost:5555/remoteObject", remoteObject);
+                LocateRegistry.createRegistry(5556);
+                Naming.rebind("//localhost:5556/remoteObject", remoteObject);
                 System.out.println("Server ready");
             }
         }

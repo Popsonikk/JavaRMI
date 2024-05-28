@@ -1,7 +1,6 @@
 package client;
 
 
-import database.SQLiteConnector;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import service.RemoteInterface;
-import service.User;
+
 
 import java.rmi.RemoteException;
 
@@ -60,7 +59,7 @@ public class LoginWindowController {
         else
         {
             mw.setNick(nick.getText());
-            if (SQLiteConnector.isAdmin(nick.getText()))
+            if (remoteInterface.getUser().isAdmin())
                 mw.onAddButton();
             nick.clear();
             password.clear();
