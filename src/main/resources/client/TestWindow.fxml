@@ -56,7 +56,7 @@
                 <Font size="36.0" />
             </font>
         </Text>
-        <Button fx:id="addQuestButton" layoutX="325.0" layoutY="536.0" mnemonicParsing="false" onAction="#addQuest" styleClass="applyButton" stylesheets="@styles.css" text="Potwierdź" />
+        <Button fx:id="button" layoutX="325.0" layoutY="536.0" mnemonicParsing="false" onAction="#next" styleClass="applyButton" stylesheets="@styles.css" text="Potwierdź" />
         <GridPane layoutX="250.0" layoutY="109.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="300.0">
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />

@@ -16,10 +16,24 @@ import java.util.ResourceBundle;
 public class MainWindowController implements Initializable {
 
 
+    @FXML
+    private Text testName;
+
+    @FXML
+    private Button add;
+
+    @FXML
+    private Button write;
+
     private Stage mainStage; //kontener reprezentujący okno aplikacji
     private Scene loginScene;
     private Scene registerScene;
     private Scene questionScene;
+
+    private Scene testScene;
+
+    private TestWindowController testWindowController;
+
     @FXML
     private Text helloMessage;
     private SimpleStringProperty nick=new SimpleStringProperty();
@@ -31,6 +45,9 @@ public class MainWindowController implements Initializable {
 
         this.nick.set(" ");
         helloMessage.textProperty().bind(Bindings.concat("Zalogowany jako: ").concat(nick));
+        add.setDisable(true);
+        write.setDisable(true);
+
 
     }
 
@@ -41,6 +58,13 @@ public class MainWindowController implements Initializable {
     public void setLoginScene(Scene loginScene) {
         this.loginScene = loginScene;
     }
+
+    public void setTestScene(Scene testScene) {this.testScene = testScene;}
+
+    public void setTestWindowController(TestWindowController testWindowController) {
+        this.testWindowController = testWindowController;
+    }
+
     public void setStage(Stage stage)
     {
         this.mainStage=stage;
@@ -51,8 +75,29 @@ public class MainWindowController implements Initializable {
         mainStage.setScene(registerScene);
     }
     public void addTest(){mainStage.setScene(questionScene);}
+
+    public void writeTest()
+    {
+        if(testName.getText().isEmpty())
+        {
+            System.out.println("Nie podałes nazwy testu!");
+            return;
+        }
+        else
+        {
+            testWindowController.setTestName(testName.getText());
+            mainStage.setScene(testScene);
+        }
+
+    }
+    public void onAddButton()
+    {
+        add.setDisable(false);
+    }
     public void setNick(String s)
     {
         nick.set(s);
+        write.setDisable(false);
+        add.setDisable(true);
     }
 }

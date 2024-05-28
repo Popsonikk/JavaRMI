@@ -72,10 +72,12 @@ public class RegisterWindowController implements Initializable {
                 nickMess.setText("Pole tekstowe jest puste");
                 nick.setStyle("-fx-text-box-border: red;");
                 isNickValid=false;
+                button.setDisable(true);
             } else if (newValue.length()<4) {
                 nickMess.setText("Pole tekstowe jest za krótkie");
                 nick.setStyle("-fx-text-box-border: red;");
                 isNickValid=false;
+                button.setDisable(true);
             }
             else
             {
@@ -92,22 +94,26 @@ public class RegisterWindowController implements Initializable {
                 passMess.setText("Pole tekstowe jest puste");
                 password.setStyle("-fx-text-box-border: red;");
                 isPasswordValid=false;
+                button.setDisable(true);
             } else if (newValue.length()<8) {
                 passMess.setText("Pole tekstowe jest za krótkie");
                 password.setStyle("-fx-text-box-border: red;");
                 isPasswordValid=false;
+                button.setDisable(true);
             }
             else if(!newValue.matches(".*[A-Z].*"))
             {
                 passMess.setText("Brak dużej litery");
                 password.setStyle("-fx-text-box-border: green;");
                 isPasswordValid=false;
+                button.setDisable(true);
             }
             else if(!newValue.matches(".*\\d.*"))
             {
                 passMess.setText("Brak cyfry");
                 password.setStyle("-fx-text-box-border: green;");
                 isPasswordValid=false;
+                button.setDisable(true);
             }
             else
             {
@@ -123,10 +129,18 @@ public class RegisterWindowController implements Initializable {
                 applyMess.setText("Pole tekstowe jest puste");
                 applyPass.setStyle("-fx-text-box-border: red;");
                 isApplyPassValid=false;
+                button.setDisable(true);
             } else if (!newValue.equals(password.getText())) {
                 applyMess.setText("Podane hasła się różnią");
                 applyPass.setStyle("-fx-text-box-border: red;");
                 isApplyPassValid=false;
+                button.setDisable(true);
+            }
+            else if (!isPasswordValid) {
+                applyMess.setText("Hasło nie spełnia wymogów");
+                applyPass.setStyle("-fx-text-box-border: red;");
+                isApplyPassValid=false;
+                button.setDisable(true);
             }
             else
             {
@@ -142,7 +156,11 @@ public class RegisterWindowController implements Initializable {
 
     public void addAccount() throws RemoteException {
 
-        remoteInterface.register(nick.getText(),password.getText(),checkBox.isSelected());
+        boolean b=remoteInterface.register(nick.getText(),password.getText(),checkBox.isSelected());
+        if(b)
+            System.out.println("Rejestracja udana");
+        else
+            System.out.println("Wystąpił błąd podczas rejestracji");
         showMainScene();
     }
 }

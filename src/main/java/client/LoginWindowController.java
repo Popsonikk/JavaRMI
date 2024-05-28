@@ -60,7 +60,12 @@ public class LoginWindowController {
         else
         {
             mw.setNick(nick.getText());
+            if (SQLiteConnector.isAdmin(nick.getText()))
+                mw.onAddButton();
+            nick.clear();
+            password.clear();
             showMainScene();
+
         }
     }
 }

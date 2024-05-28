@@ -81,7 +81,7 @@ public class SQLiteConnector {
         {
             statement.setString(1,name);
             statement.executeUpdate();
-            System.out.println("Dane wstawiono poprawnie");
+            System.out.println("Test wstawiono poprawnie");
         }
         catch (SQLException e)
         {
@@ -100,7 +100,7 @@ public class SQLiteConnector {
             statement.setString(5,correct);
             statement.setInt(6,id);
             statement.executeUpdate();
-            System.out.println("Dane wstawiono poprawnie");
+            System.out.println("Pytanie dodane poprawnie");
         }
         catch (SQLException e)
         {
@@ -114,6 +114,22 @@ public class SQLiteConnector {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM accountTable WHERE isAdmin=true");
             if (resultSet.next())
                 return true;
+            else
+                return false;
+
+        } catch (SQLException e) {
+            System.out.println("Wystąpił błąd podczas wstawiania konta:" + e);
+            return false;
+        }
+    }
+    public static boolean isAdmin(String name) {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+             PreparedStatement statement =conn.prepareStatement( "SELECT isAdmin FROM accountTable WHERE name=(?)")) {
+
+           statement.setString(1,name);
+            ResultSet resultSet=statement.executeQuery();
+            if(resultSet.next())
+                return resultSet.getBoolean("isAdmin");
             else
                 return false;
 
