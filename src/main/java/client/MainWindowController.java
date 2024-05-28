@@ -1,11 +1,15 @@
 package client;
 
+import database.SQLiteConnector;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import service.RemoteInterface;
@@ -17,7 +21,10 @@ public class MainWindowController implements Initializable {
 
 
     @FXML
-    private Text testName;
+    private TextField testName;
+
+    @FXML
+    private Text alertText;
 
     @FXML
     private Button add;
@@ -80,12 +87,18 @@ public class MainWindowController implements Initializable {
     {
         if(testName.getText().isEmpty())
         {
-            System.out.println("Nie podałes nazwy testu!");
-            return;
+            alertText.setText("Nie podałes nazwy testu!");
+            alertText.setFill(Color.RED);
+        }
+        else if(SQLiteConnector.getTestId(testName.getText())==-1)
+        {
+            alertText.setText("Podany test nie istnieje");
+            alertText.setFill(Color.RED);
         }
         else
         {
             testWindowController.setTestName(testName.getText());
+            alertText.setText("");
             mainStage.setScene(testScene);
         }
 
