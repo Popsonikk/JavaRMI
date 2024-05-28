@@ -47,7 +47,7 @@ public class Client extends Application {
 
             mainWindowController.setRegisterScene(new Scene(registerWindow, 800, 600));
             mainWindowController.setLoginScene(new Scene(loginWindow,800,600));
-            mainWindowController.setTestScene(new Scene(questWindow,800,600));
+            mainWindowController.setQuestionScene(new Scene(questWindow,800,600));
 
             mainWindowController.setRemoteInterface(remoteObject);
             loginWindowController.setRemoteInterface(remoteObject);
