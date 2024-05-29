@@ -91,7 +91,7 @@ public class TestWindowController implements Initializable {
             buttonNext.setDisable(true);
             alert.setText("Twój wynik to " + score + " na " + questions.size());
             pane.getChildren().add(button);
-            boolean b=remoteInterface.addScore(remoteInterface.getUser().getName(),remoteInterface.getTestId(testName),score);
+            boolean b=remoteInterface.addScore(remoteInterface.getUser().getName(),remoteInterface.getTestId(testName),score*100/questions.size());
             if(b)
                 System.out.println("Wykonanie testu przebiegło poprawnie");
             else

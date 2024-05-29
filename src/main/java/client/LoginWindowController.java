@@ -63,6 +63,7 @@ public class LoginWindowController {
                 mw.onAddButton();
             nick.clear();
             password.clear();
+            mess.setText("");
             showMainScene();
 
         }

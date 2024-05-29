@@ -80,6 +80,11 @@ public class QuestionWindowController implements Initializable {
             System.out.println("Nie wybrałes poprawnej odpowiedzi");
             return;
         }
+        if(quest.getText().isEmpty()||a.getText().isEmpty()||b.getText().isEmpty()||c.getText().isEmpty())
+        {
+            System.out.println("Zostawies puste pole");
+            return;
+        }
         questions.add(new Question(quest.getText(),a.getText(),b.getText(),c.getText(),correct));
         quest.clear();
         a.clear();

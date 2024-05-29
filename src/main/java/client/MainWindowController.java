@@ -109,6 +109,7 @@ public class MainWindowController implements Initializable {
             testWindowController.setQuestions(remoteInterface.getQuestionList(testName.getText()));
             testWindowController.startTest();
             alertText.setText("");
+            testName.setText("");
             mainStage.setScene(testScene);
         }
 
