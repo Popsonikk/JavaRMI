@@ -78,7 +78,7 @@ public class TestWindowController implements Initializable {
         this.questions = questions;
     }
 
-    public void next() {
+    public void next() throws RemoteException {
         if((is_A_valid.isSelected()&& Objects.equals(questions.get(questionNumber).getGood(), "a"))||
                 (is_B_valid.isSelected()&& Objects.equals(questions.get(questionNumber).getGood(), "b"))||
                         (is_C_valid.isSelected()&& Objects.equals(questions.get(questionNumber).getGood(), "c")))
@@ -90,9 +90,12 @@ public class TestWindowController implements Initializable {
         else {
             buttonNext.setDisable(true);
             alert.setText("Twój wynik to " + score + " na " + questions.size());
-
-
             pane.getChildren().add(button);
+            boolean b=remoteInterface.addScore(remoteInterface.getUser().getName(),remoteInterface.getTestId(testName),score);
+            if(b)
+                System.out.println("Wykonanie testu przebiegło poprawnie");
+            else
+                System.out.println("Wystąpił błąd w trakcie przeprowadzania testu");
         }
 
     }

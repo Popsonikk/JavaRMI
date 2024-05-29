@@ -74,6 +74,19 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
     }
 
     @Override
+    public boolean addScore(String nickName, int testId, int score) throws RemoteException {
+        try
+        {
+            SQLiteConnector.addScore(nickName,testId,score);
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
+    @Override
     public int getTestId(String name) throws RemoteException {
         return SQLiteConnector.getTestId(name);
     }

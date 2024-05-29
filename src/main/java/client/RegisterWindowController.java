@@ -161,6 +161,13 @@ public class RegisterWindowController implements Initializable {
             System.out.println("Rejestracja udana");
         else
             System.out.println("Wystąpił błąd podczas rejestracji");
+        isNickValid = false;
+        isPasswordValid = false;
+        isApplyPassValid = false;
+        nick.clear();
+        password.clear();
+        applyPass.clear();
+
         showMainScene();
     }
 }

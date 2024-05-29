@@ -35,12 +35,20 @@ public class SQLiteConnector {
         createTable(checkTableExistsSQL,createTableSQL);
 
     }
+    public static void createScoreTable()
+    {
+        String checkTableExistsSQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='scoreTable';";
+        String createTableSQL = "CREATE TABLE scoreTable ( id INTEGER PRIMARY KEY AUTOINCREMENT, testId INTEGER, accountName TEXT," +
+                "score INTEGER NOT NULL, FOREIGN KEY (testId) REFERENCES testTable(id),FOREIGN KEY (accountName) REFERENCES accountTable(name));";
+        createTable(checkTableExistsSQL,createTableSQL);
+
+    }
     public static void createQuestionTable()
     {
         String checkTableExistsSQL = "SELECT name FROM sqlite_master WHERE type='table' AND name='questionTable';";
         String createTableSQL = "CREATE TABLE questionTable ( id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "question TEXT NOT NULL, a TEXT NOT NULL, b TEXT NOT NULL, c TEXT NOT NULL, correct TEXT NOT NULL," +
-                " testId INTEGER, FOREIGN KEY (testId) REFERENCES tests(id) );";
+                " testId INTEGER, FOREIGN KEY (testId) REFERENCES testTable(id) );";
         createTable(checkTableExistsSQL,createTableSQL);
 
     }
@@ -75,6 +83,22 @@ public class SQLiteConnector {
         catch (SQLException e)
         {
             System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
+        }
+    }
+    public static void addScore(String nickName, int testID,int score)
+    {
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            PreparedStatement statement= conn.prepareStatement("INSERT INTO scoreTable (testId,accountName,score) VALUES ( ?,?,?)"))
+        {
+            statement.setInt(1,testID);
+            statement.setString(2,nickName);
+            statement.setInt(3,score);
+            statement.executeUpdate();
+            System.out.println("Wynik Testu wstawiony poprawnie");
+        }
+        catch (SQLException e)
+        {
+            System.out.println("Wystąpił błąd podczas wstawiania wyników testu:"  +e);
         }
     }
     public static void addTest(String name)
