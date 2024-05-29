@@ -47,6 +47,7 @@
          </children>
       </GridPane>
       <Text fx:id="alertText" layoutX="250.0" layoutY="581.0" styleClass="defaultText" textAlignment="CENTER" wrappingWidth="300" />
+      <Button layoutX="250.0" layoutY="438.0" mnemonicParsing="false" onAction="#showScore" styleClass="mainMenuButton" text="Wyniki" />
 
 
 

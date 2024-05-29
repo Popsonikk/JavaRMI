@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="client.ScoreWindowController"
+      prefHeight="600.0" prefWidth="800.0" fx:id="pane">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+    <children>
+        <Button layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onAction="#showMainScene" prefHeight="50.0" prefWidth="200.0" styleClass="backButton" text="Powrót" />
+        <ScrollPane layoutX="5.0" layoutY="65.0" prefHeight="530.0" prefWidth="790.0">
+            <content>
+                <TableView prefHeight="530.0" prefWidth="775.0"  fx:id="tableView"/>
+            </content>
+        </ScrollPane>
+    </children>
+
+
+</Pane>

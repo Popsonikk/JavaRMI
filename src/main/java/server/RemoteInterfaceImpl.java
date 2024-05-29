@@ -1,6 +1,7 @@
 package server;
 
 import database.SQLiteConnector;
+import javafx.collections.ObservableList;
 import service.Question;
 import service.RemoteInterface;
 import service.User;
@@ -10,7 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.Connection;
 import java.util.List;
 
-public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteInterface {
+public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteInterface{
 
 
     private User user;
@@ -89,6 +90,11 @@ public class RemoteInterfaceImpl extends UnicastRemoteObject implements RemoteIn
     @Override
     public int getTestId(String name) throws RemoteException {
         return SQLiteConnector.getTestId(name);
+    }
+
+    @Override
+    public List<List<String>> getBasicScoreList()  {
+        return SQLiteConnector.getBasicScoreList();
     }
 
     @Override

@@ -3,6 +3,7 @@ package client;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -37,10 +38,13 @@ public class MainWindowController implements Initializable {
     private Scene loginScene;
     private Scene registerScene;
     private Scene questionScene;
+    private Scene scoreScene;
 
     private Scene testScene;
 
     private TestWindowController testWindowController;
+
+    private ScoreWindowController scoreWindowController;
 
     @FXML
     private Text helloMessage;
@@ -68,6 +72,10 @@ public class MainWindowController implements Initializable {
     }
 
     public void setTestScene(Scene testScene) {this.testScene = testScene;}
+
+    public void setScoreScene(Scene scoreScene) {
+        this.scoreScene = scoreScene;
+    }
 
     public void setTestWindowController(TestWindowController testWindowController) {
         this.testWindowController = testWindowController;
@@ -114,5 +122,14 @@ public class MainWindowController implements Initializable {
         nick.set(s);
         write.setDisable(false);
         add.setDisable(true);
+    }
+
+    public void setScoreWindowController(ScoreWindowController scoreWindowController) {
+        this.scoreWindowController = scoreWindowController;
+    }
+
+    public void showScore() throws RemoteException {
+        scoreWindowController.createView();
+        mainStage.setScene(scoreScene);
     }
 }

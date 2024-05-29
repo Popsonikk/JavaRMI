@@ -1,5 +1,7 @@
 package database;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import service.Question;
 import service.User;
 
@@ -149,22 +151,7 @@ public class SQLiteConnector {
             return false;
         }
     }
-    public static boolean isAdmin(String name) {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
-             PreparedStatement statement =conn.prepareStatement( "SELECT isAdmin FROM accountTable WHERE name=(?)")) {
 
-           statement.setString(1,name);
-            ResultSet resultSet=statement.executeQuery();
-            if(resultSet.next())
-                return resultSet.getBoolean("isAdmin");
-            else
-                return false;
-
-        } catch (SQLException e) {
-            System.out.println("Wystąpił błąd podczas wstawiania konta:" + e);
-            return false;
-        }
-    }
     public static User getAccount(String name, String password)
     {
         try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
@@ -227,6 +214,30 @@ public class SQLiteConnector {
             System.out.println("Wystąpił błąd podczas wstawiania konta:"  +e);
             return -1;
         }
+    }
+
+    public static List<List<String>> getBasicScoreList()
+    {
+        List<List<String>> list= new ArrayList<>();
+        String command = "SELECT st.accountName, st.score, tt.testName,tt.id,st.testId FROM scoreTable AS st JOIN testTable as tt ON tt.id=st.testId";
+        try(Connection conn = DriverManager.getConnection("jdbc:sqlite:src/main/resources/myDatabase.db");
+            Statement statement= conn.createStatement()) {
+            ResultSet resultSet=statement.executeQuery(command);
+            while (resultSet.next())
+            {
+
+                List<String> row= new ArrayList<>();
+                row.add(resultSet.getString("accountName"));
+                row.add(resultSet.getString("testName"));
+                row.add(String.valueOf(resultSet.getInt("score")));
+                list.add(row);
+            }
+
+        }
+        catch (SQLException e) {
+            System.out.println("Wystąpił błąd podczas pobierania listy: " + e.getMessage());
+        }
+        return list;
     }
 
 }
